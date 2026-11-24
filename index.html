@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1269d3">
+  <meta name="description" content="Nexa Telecom — আপনার সকল ডিজিটাল সেবা এক জায়গায়">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>Nexa Telecom</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;color:#173b66;background:#f3f7fc}
+    *{box-sizing:border-box}body{margin:0}.wrap{max-width:520px;margin:auto;min-height:100vh;background:#fff;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+    .brand{display:flex;align-items:center;gap:10px;color:#1269d3;font-weight:800;font-size:20px}
+    .logo{width:42px;height:42px;border-radius:13px;background:#1269d3;color:white;display:grid;place-items:center;font-size:22px}
+    .hero{background:linear-gradient(135deg,#145eb5,#0d3974);color:#fff;padding:22px;border-radius:20px;margin-bottom:22px}
+    .hero h1{font-size:24px;line-height:1.35;margin:8px 0}.muted{color:#6c8099;font-size:13px}
+    h2{font-size:18px;margin:20px 0 12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .tile, .panel{border:1px solid #dce7f5;border-radius:15px;padding:15px;background:white}
+    .tile .ico{font-size:25px;color:#1269d3}.tile b{display:block;margin-top:8px;font-size:14px}
+    .wallet{background:#eaf3ff;border-radius:17px;padding:16px;display:flex;justify-content:space-between;align-items:center}
+    button{border:0;border-radius:12px;padding:12px 15px;background:#1269d3;color:white;font-weight:700;font-size:14px}
+    button.secondary{background:#eaf3ff;color:#1269d3}input,select{width:100%;padding:12px;border:1px solid #cbd9ea;border-radius:11px;font:inherit;margin:7px 0 12px}
+    label{font-size:13px;font-weight:700}.row{display:flex;gap:8px}.row>*{flex:1}
+    .notice{background:#fff7e6;color:#805500;padding:11px;border-radius:11px;font-size:12px;line-height:1.5;margin-top:15px}
+    nav{position:sticky;bottom:0;background:#fff;border-top:1px solid #e2eaf4;display:flex;justify-content:space-around;padding:13px 0 5px;margin:20px -18px -18px}
+    nav a{color:#60758f;text-decoration:none;font-size:12px;text-align:center}nav span{display:block;font-size:19px}
+    .hidden{display:none}.result{font-size:13px;color:#167347;margin-top:10px}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header><div class="brand"><div class="logo">⌁</div><div>NEXA<br><small style="font-size:10px;letter-spacing:2px">TELECOM</small></div></div><span>🔔</span></header>
+  <section class="hero"><small>WELCOME TO NEXA</small><h1>আপনার সকল ডিজিটাল সেবা এক জায়গায়!</h1><p style="color:#dceaff;font-size:13px">Recharge • Internet • Payments</p></section>
+  <section class="wallet"><div><div class="muted">ডেমো ওয়ালেট ব্যালেন্স</div><strong style="font-size:25px">৳ <span id="balance">500</span></strong></div><button class="secondary" onclick="show('walletPage')">টাকা যোগ</button></section>
+  <h2>আমাদের সেবাসমূহ | Our Services</h2>
+  <section class="grid">
+    <div class="tile" onclick="show('rechargePage')"><div class="ico">📱</div><b>মোবাইল রিচার্জ</b><small class="muted">Mobile Recharge</small></div>
+    <div class="tile"><div class="ico">📶</div><b>ইন্টারনেট প্যাকেজ</b><small class="muted">Internet Packages</small></div>
+    <div class="tile"><div class="ico">☎️</div><b>মিনিট প্যাকেজ</b><small class="muted">Minute Packages</small></div>
+    <div class="tile" onclick="show('walletPage')"><div class="ico">👛</div><b>আমার ওয়ালেট</b><small class="muted">My Wallet</small></div>
+    <div class="tile"><div class="ico">🧾</div><b>বিল পেমেন্ট</b><small class="muted">Bill Payment</small></div>
+    <div class="tile"><div class="ico">🎧</div><b>কাস্টমার সাপোর্ট</b><small class="muted">Customer Support</small></div>
+  </section>
+
+  <section id="rechargePage" class="panel hidden" style="margin-top:18px">
+    <h2>মোবাইল রিচার্জ</h2>
+    <label>অপারেটর</label><select id="operator"><option>গ্রামীণফোন</option><option>রবি</option><option>এয়ারটেল</option><option>বাংলালিংক</option><option>টেলিটক</option></select>
+    <label>রিচার্জের ধরন</label><select id="kind"><option>প্রিপেইড</option><option>পোস্টপেইড</option></select>
+    <label>মোবাইল নম্বর</label><input id="phone" inputmode="numeric" placeholder="01XXXXXXXXX" maxlength="11">
+    <label>টাকার পরিমাণ</label><input id="amount" type="number" min="10" placeholder="যেমন ৫০">
+    <button onclick="demoRecharge()">ডেমো রিচার্জ পরীক্ষা</button><div id="rechargeResult" class="result"></div>
+  </section>
+
+  <section id="walletPage" class="panel hidden" style="margin-top:18px">
+    <h2>আমার ওয়ালেট</h2><p class="muted">শুধু পরীক্ষামূলক ব্যালেন্স—বাস্তব টাকা নয়।</p>
+    <label>ডেমো টাকা যোগ করুন</label><input id="addAmount" type="number" min="1" placeholder="টাকার পরিমাণ">
+    <button onclick="addDemoMoney()">ডেমো ব্যালেন্স যোগ</button><div id="walletResult" class="result"></div>
+  </section>
+  <div class="notice">গুরুত্বপূর্ণ: এটি একটি প্রাথমিক PWA প্রোটোটাইপ। এখানে কোনো বাস্তব পেমেন্ট, OTP, অ্যাকাউন্ট বা মোবাইল রিচার্জ চালু নেই। বাস্তব সেবা চালুর আগে নিরাপদ সার্ভার, অনুমোদিত পেমেন্ট গেটওয়ে এবং রিচার্জ API যুক্ত করতে হবে।</div>
+  <nav><a href="#" onclick="showHome()"><span>⌂</span>Home</a><a href="#" onclick="show('rechargePage')"><span>📱</span>Recharge</a><a href="#" onclick="show('walletPage')"><span>👛</span>Wallet</a><a href="#"><span>☻</span>Profile</a></nav>
+</main>
+<script>
+let balance=500;
+function show(id){document.getElementById('rechargePage').classList.add('hidden');document.getElementById('walletPage').classList.add('hidden');document.getElementById(id).classList.remove('hidden');document.getElementById(id).scrollIntoView({behavior:'smooth',block:'nearest'});}
+function showHome(){document.getElementById('rechargePage').classList.add('hidden');document.getElementById('walletPage').classList.add('hidden');window.scrollTo({top:0,behavior:'smooth'});}
+function demoRecharge(){
+ const p=document.getElementById('phone').value,a=Number(document.getElementById('amount').value);
+ const out=document.getElementById('rechargeResult');
+ if(!/^01[3-9]\d{8}$/.test(p)){out.textContent='সঠিক ১১ সংখ্যার বাংলাদেশি মোবাইল নম্বর দিন।';return;}
+ if(!Number.isFinite(a)||a<10){out.textContent='কমপক্ষে ১০ টাকা লিখুন।';return;}
+ if(a>balance){out.textContent='ডেমো ব্যালেন্স পর্যাপ্ত নয়।';return;}
+ balance-=a;document.getElementById('balance').textContent=balance;
+ out.textContent='ডেমো অর্ডার তৈরি হয়েছে। কোনো টাকা কাটা বা রিচার্জ পাঠানো হয়নি।';
+}
+function addDemoMoney(){const a=Number(document.getElementById('addAmount').value),out=document.getElementById('walletResult');if(!Number.isFinite(a)||a<=0){out.textContent='সঠিক পরিমাণ লিখুন।';return;}balance+=a;document.getElementById('balance').textContent=balance;out.textContent='ডেমো ব্যালেন্স আপডেট হয়েছে; বাস্তব টাকা জমা হয়নি।';}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+</script>
+</body></html>
