@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0757c9">
+<title>Nexa Telecom Admin</title>
+<style>
+:root{--blue:#0757c9;--navy:#10284b;--bg:#f3f7fc;--muted:#64748b;--line:#e4ebf4}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;background:var(--bg);color:#172b4d}
+header{background:linear-gradient(120deg,#0648a8,#0879df);color:white;padding:22px 18px 28px}
+.wrap{max-width:920px;margin:auto;padding:0 14px}
+.brand{font-weight:800;font-size:22px}.sub{opacity:.9;font-size:13px;margin-top:4px}
+main{margin:-14px auto 30px}.notice{background:#fff4d6;border:1px solid #f4d98d;color:#76530a;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.55;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat,.panel{background:white;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 4px 14px #163a6810}
+.stat small{color:var(--muted)}.num{font-size:25px;font-weight:800;margin-top:5px;color:var(--navy)}
+.panel{margin-top:14px}.panel h2{font-size:17px;margin:0 0 12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+input,select,button{font:inherit;border-radius:10px;padding:10px 12px;border:1px solid var(--line);background:white;color:#172b4d}
+input{flex:1;min-width:150px}button{background:var(--blue);color:white;border:0;font-weight:700;cursor:pointer}
+button.light{background:#edf4ff;color:var(--blue)}button:disabled{opacity:.5}
+.order{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:9px;background:#fff}
+.orderTop{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.name{font-weight:750}.meta{font-size:13px;color:var(--muted);margin-top:5px;line-height:1.6}
+.amount{font-weight:800;color:var(--navy)}.status{font-size:12px;padding:5px 9px;border-radius:99px;background:#fff1d6;color:#865700}
+.status.done{background:#e4f8ed;color:#167344}.status.cancel{background:#ffe8e8;color:#a32626}
+.actions{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}.actions button{font-size:12px;padding:8px 10px}
+.empty{color:var(--muted);text-align:center;padding:22px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="brand">Nexa Telecom Admin</div><div class="sub">ডেমো অর্ডার ব্যবস্থাপনা</div></div></header>
+<main class="wrap">
+<div class="notice"><b>গুরুত্বপূর্ণ:</b> এটি শুধু নমুনা অ্যাডমিন প্যানেল। এখানে কোনো আসল গ্রাহকের অর্ডার আসে না, কোনো টাকা বা রিচার্জ পরিচালিত হয় না। ডেটা শুধু এই ব্রাউজার/ডিভাইসে সংরক্ষিত থাকে। নিরাপদ লগইন ও সার্ভার এখনো যুক্ত করা হয়নি।</div>
+<section class="grid">
+<div class="stat"><small>মোট ডেমো অর্ডার</small><div class="num" id="total">0</div></div>
+<div class="stat"><small>অপেক্ষমাণ</small><div class="num" id="pending">0</div></div>
+<div class="stat"><small>সম্পন্ন</small><div class="num" id="done">0</div></div>
+<div class="stat"><small>বাতিল</small><div class="num" id="cancelled">0</div></div>
+</section>
+<section class="panel">
+<h2>রিচার্জ অর্ডার</h2>
+<div class="toolbar">
+<input id="search" placeholder="মোবাইল নম্বর/অপারেটর খুঁজুন">
+<select id="filter"><option value="all">সব অর্ডার</option><option value="pending">অপেক্ষমাণ</option><option value="done">সম্পন্ন</option><option value="cancel">বাতিল</option></select>
+<button class="light" id="reset">ডেমো রিসেট</button>
+</div>
+<div id="orders"></div>
+</section>
+<footer>Nexa Telecom • Admin Demo</footer>
+<script>
+const seed=[
+{id:1001,operator:"রবি",type:"প্রিপেইড",phone:"017XXXXXXXX",amount:100,status:"pending"},
+{id:1002,operator:"গ্রামীণফোন",type:"প্রিপেইড",phone:"018XXXXXXXX",amount:200,status:"done"},
+{id:1003,operator:"বাংলালিংক",type:"পোস্টপেইড",phone:"019XXXXXXXX",amount:150,status:"pending"}
+];
+const key="nexa_admin_demo_orders_v1";
+let orders;
+try{orders=JSON.parse(localStorage.getItem(key))||seed}catch(e){orders=seed}
+const labels={pending:"অপেক্ষমাণ",done:"সম্পন্ন",cancel:"বাতিল"};
+function save(){localStorage.setItem(key,JSON.stringify(orders));render()}
+function render(){
+ document.getElementById("total").textContent=orders.length;
+ document.getElementById("pending").textContent=orders.filter(x=>x.status==="pending").length;
+ document.getElementById("done").textContent=orders.filter(x=>x.status==="done").length;
+ document.getElementById("cancelled").textContent=orders.filter(x=>x.status==="cancel").length;
+ const q=document.getElementById("search").value.trim().toLowerCase(), f=document.getElementById("filter").value;
+ const found=orders.filter(o=>(f==="all"||o.status===f)&&(`${o.phone} ${o.operator} ${o.id}`).toLowerCase().includes(q));
+ const box=document.getElementById("orders");
+ if(!found.length){box.innerHTML='<div class="empty">কোনো অর্ডার পাওয়া যায়নি</div>';return}
+ box.innerHTML=found.map(o=>`<article class="order"><div class="orderTop"><div><span class="name">অর্ডার #${o.id}</span> <span class="status ${o.status}">${labels[o.status]}</span></div><span class="amount">৳${o.amount}</span></div><div class="meta">অপারেটর: ${o.operator} • ${o.type}<br>নম্বর: ${o.phone}</div><div class="actions"><button data-id="${o.id}" data-status="done">সম্পন্ন করুন</button><button class="light" data-id="${o.id}" data-status="cancel">বাতিল করুন</button><button class="light" data-id="${o.id}" data-status="pending">অপেক্ষমাণ করুন</button></div></article>`).join("");
+ box.querySelectorAll("button[data-id]").forEach(b=>b.addEventListener("click",()=>{const o=orders.find(x=>x.id===Number(b.dataset.id));if(o){o.status=b.dataset.status;save()}}));
+}
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("filter").addEventListener("change",render);
+document.getElementById("reset").addEventListener("click",()=>{if(confirm("ডেমো অর্ডারগুলো আগের অবস্থায় ফেরত আনবেন?")){orders=seed.map(x=>({...x}));save()}});
+render();
+</script>
+</body></html>
