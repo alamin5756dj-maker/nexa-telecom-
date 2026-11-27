@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0866c6">
+<title>Nexa Telecom | Admin Login Demo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;background:#f2f6fc;color:#142b49;min-height:100vh;display:grid;place-items:center;padding:22px}
+.card{width:min(100%,420px);background:#fff;border:1px solid #e2eaf4;border-radius:22px;padding:28px;box-shadow:0 14px 40px #17365d18}
+.logo{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,#0754b5,#1596ed);display:grid;place-items:center;color:#fff;font-size:25px;font-weight:800}
+h1{font-size:25px;margin:18px 0 4px}p{color:#60738b;line-height:1.6;margin:6px 0 22px}
+label{display:block;font-weight:650;margin:16px 0 7px}
+input{width:100%;padding:14px;border:1px solid #d8e1ec;border-radius:12px;font-size:16px;background:#fbfdff}
+button{width:100%;border:0;border-radius:12px;padding:14px;background:#0866c6;color:white;font-size:17px;font-weight:700;margin-top:22px}
+.note{font-size:13px;background:#fff5d9;border:1px solid #f0d98e;border-radius:12px;padding:13px;margin-top:18px;color:#765719}
+a{color:#0866c6;text-decoration:none;font-weight:700}.back{text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<main class="card">
+<div class="logo">N</div>
+<h1>Nexa Telecom</h1>
+<p>অ্যাডমিন প্যানেল · লগইন পেজের ডেমো ডিজাইন</p>
+<form id="demo">
+<label for="user">অ্যাডমিন ইউজারনেম</label>
+<input id="user" autocomplete="username" placeholder="ইউজারনেম লিখুন" required>
+<label for="pass">পাসওয়ার্ড</label>
+<input id="pass" type="password" autocomplete="current-password" placeholder="পাসওয়ার্ড লিখুন" required>
+<button type="submit">ডেমো দেখুন</button>
+</form>
+<div class="note"><strong>সতর্কতা:</strong> এটি শুধু নমুনা ডিজাইন। এখানে কোনো পাসওয়ার্ড যাচাই বা নিরাপদ লগইন নেই। এই পেজ দিয়ে অ্যাডমিন প্যানেল সুরক্ষিত হয় না। বাস্তব লগইনের জন্য সার্ভার-ভিত্তিক authentication প্রয়োজন।</div>
+<div class="back"><a href="admin.html">অ্যাডমিন প্যানেল খুলুন</a></div>
+</main>
+<script>
+document.getElementById('demo').addEventListener('submit',function(e){
+e.preventDefault();
+alert('এটি শুধু লগইন পেজের ডেমো। বাস্তব লগইন এখনো যুক্ত হয়নি।');
+});
+</script>
+</body>
+</html>
